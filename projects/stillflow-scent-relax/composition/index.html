@@ -12,9 +12,9 @@
 
       /* STILLFLOW 暖米色亮底（brands/stillflow/brand.md） */
       :root {
-        --bg: #f2e7d3; --ink: #3b352b; --muted: #8a7e6c; --hi: #3b352b;
+        --bg: #f6e1c4; --ink: #3b352b; --muted: #8a7e6c; --hi: #3b352b;
         --r1: #c98a6b; --r2: #d8b48a; --r3: #9b86c9; --r4: #8fa98c;
-        --card: #2e3730; --cardink: #f2ecdf; --soft: rgba(59, 53, 43, 0.07);
+        --card: #ead6ae; --cardink: #3b352b; --soft: rgba(59, 53, 43, 0.07);
       }
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--bg); }
@@ -34,13 +34,13 @@
       #s2-card { left: 65px; top: 330px; width: 950px; height: 1000px; border-radius: 36px; background: var(--card); overflow: hidden; }
       #s2-card svg { width: 100%; height: 100%; display: block; }
       .xlbl { font: 700 37px "Noto Sans TC", sans-serif; fill: var(--cardink); }
-      .xlbl.sm { font-size: 30px; fill: #c7d2c3; }
-      .lead { stroke: var(--cardink); stroke-opacity: 0.6; stroke-width: 3; fill: none; }
+      .xlbl.sm { font-size: 30px; fill: #7a6f5c; }
+      .lead { stroke: var(--cardink); stroke-opacity: 0.5; stroke-width: 3; fill: none; }
       .dot { fill: var(--cardink); }
       .sense { position: absolute; width: 150px; text-align: center; color: var(--cardink); }
       .sense .emo { font-size: 72px; }
       .sense span { display: block; font-size: 30px; font-weight: 700; margin-top: 2px; }
-      #s2-fn { left: 65px; width: 950px; top: 1300px; text-align: center; font-size: 32px; font-weight: 700; color: var(--muted); }
+      #s2-fn { left: 65px; width: 950px; top: 1300px; text-align: center; font-size: 32px; font-weight: 700; color: #6f6250; }
       .bypass { position: absolute; background: var(--hi); color: var(--bg); border-radius: 999px;
         padding: 10px 30px; font-size: 38px; font-weight: 900; white-space: nowrap; }
       #s2-mem { position: absolute; left: 648px; top: 548px; width: 250px; text-align: center; color: var(--cardink); }
@@ -60,7 +60,7 @@
       /* CTA（S5） */
       #s5-q { left: 76px; right: 76px; top: 430px; text-align: center; font-size: 84px; font-weight: 900; line-height: 1.3; }
       #s5-sub { left: 90px; right: 90px; top: 690px; text-align: center; font-size: 44px; font-weight: 700; color: var(--muted); }
-      #s5-card { left: 110px; top: 800px; width: 860px; height: 360px; border-radius: 48px; background: var(--card); color: var(--cardink);
+      #s5-card { left: 110px; top: 800px; width: 860px; height: 360px; border-radius: 48px; background: #3b352b; color: #f3ead9;
         display: flex; align-items: center; justify-content: center; gap: 26px; }
       #s5-card .dm { font-size: 72px; font-weight: 900; }
       #s5-kw { display: inline-block; background: var(--r3); color: #2a2340; border-radius: 36px; padding: 8px 40px; font-size: 118px; font-weight: 900; line-height: 1.15; }
@@ -103,27 +103,27 @@
             </defs>
             <!-- 頭部（側面，面朝左） -->
             <g id="s2-head">
-              <ellipse cx="545" cy="470" rx="355" ry="398" fill="#3c4a40" />
-              <path d="M205,440 C150,470 150,532 205,560 L252,545 C218,516 218,486 252,456 Z" fill="#3c4a40" />
-              <ellipse id="s2-brain" cx="590" cy="438" rx="268" ry="300" fill="#47584c" />
-              <path id="s2-cavity" d="M212,540 C242,470 252,420 300,386 L336,414 C292,450 278,498 258,556 Z" fill="#5b6e60" />
-              <ellipse id="s2-bulb" cx="318" cy="378" rx="42" ry="28" fill="#d8b48a" />
+              <ellipse cx="545" cy="470" rx="355" ry="398" fill="#cda87c" />
+              <path d="M205,440 C150,470 150,532 205,560 L252,545 C218,516 218,486 252,456 Z" fill="#cda87c" />
+              <ellipse id="s2-brain" cx="590" cy="438" rx="268" ry="300" fill="#e2c89e" />
+              <path id="s2-cavity" d="M212,540 C242,470 252,420 300,386 L336,414 C292,450 278,498 258,556 Z" fill="#bd9668" />
+              <ellipse id="s2-bulb" cx="318" cy="378" rx="42" ry="28" fill="#b9774e" />
             </g>
             <!-- 路線 A：其他感官 → 視丘 → 分送 -->
             <g id="s2-routeA">
-              <path id="s2-la1" class="lead" d="M165,300 L520,452" pathLength="1" style="stroke:#c7d2c3;stroke-opacity:.55;stroke-width:5" />
-              <path id="s2-la2" class="lead" d="M165,480 L500,470" pathLength="1" style="stroke:#c7d2c3;stroke-opacity:.55;stroke-width:5" />
-              <path id="s2-la3" class="lead" d="M165,660 L515,505" pathLength="1" style="stroke:#c7d2c3;stroke-opacity:.55;stroke-width:5" />
-              <circle id="s2-thal" cx="560" cy="470" r="60" fill="#8fa98c" />
+              <path id="s2-la1" class="lead" d="M165,300 L520,452" pathLength="1" style="stroke:#6f6250;stroke-opacity:.55;stroke-width:5" />
+              <path id="s2-la2" class="lead" d="M165,480 L500,470" pathLength="1" style="stroke:#6f6250;stroke-opacity:.55;stroke-width:5" />
+              <path id="s2-la3" class="lead" d="M165,660 L515,505" pathLength="1" style="stroke:#6f6250;stroke-opacity:.55;stroke-width:5" />
+              <circle id="s2-thal" cx="560" cy="470" r="60" fill="#6f9b84" />
             </g>
             <!-- 路線 B：嗅覺直達邊緣系統 -->
-            <path id="s2-rb" d="M300,470 C360,610 400,678 470,655" fill="none" stroke="#9b86c9" stroke-width="15" stroke-linecap="round" pathLength="1" style="stroke-dasharray:1 1.2;stroke-dashoffset:1.1" />
-            <ellipse id="s2-limbic" cx="470" cy="652" rx="150" ry="95" fill="#9b86c9" opacity="0.22" />
-            <ellipse id="s2-limbic-ring" cx="470" cy="652" rx="150" ry="95" fill="none" stroke="#9b86c9" stroke-width="6" opacity="0" />
+            <path id="s2-rb" d="M300,470 C360,610 400,678 470,655" fill="none" stroke="#7d63bd" stroke-width="15" stroke-linecap="round" pathLength="1" style="stroke-dasharray:1 1.2;stroke-dashoffset:1.1" />
+            <ellipse id="s2-limbic" cx="470" cy="652" rx="150" ry="95" fill="#9b86c9" opacity="0.34" />
+            <ellipse id="s2-limbic-ring" cx="470" cy="652" rx="150" ry="95" fill="none" stroke="#7d63bd" stroke-width="6" opacity="0" />
             <!-- 主角：氣味分子 -->
             <g id="s2-mol">
-              <circle r="34" fill="none" stroke="#f2ecdf" stroke-width="5" opacity="0.9" />
-              <circle r="22" fill="#9b86c9" stroke="#f2ecdf" stroke-width="4" />
+              <circle r="34" fill="none" stroke="#5a4a86" stroke-width="5" opacity="0.9" />
+              <circle r="22" fill="#9b86c9" stroke="#3b352b" stroke-width="4" />
             </g>
             <!-- 標籤 -->
             <g id="s2-lab-nose"><path class="lead" d="M140,360 L140,388 L205,470" pathLength="1" /><circle class="dot" cx="205" cy="470" r="7" /><text class="xlbl" x="140" y="344">鼻子</text></g>
