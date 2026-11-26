@@ -12,7 +12,7 @@
 
       /* STILLFLOW 暖米色亮底（brands/stillflow/brand.md） */
       :root {
-        --bg: #fbf1df; --ink: #3b352b; --muted: #8a7e6c; --hi: #3b352b;
+        --bg: #f7968c; --ink: #ffffff; --muted: #8a7e6c; --hi: #3b352b;
         --r1: #c98a6b; --r2: #d8b48a; --r3: #9b86c9; --r4: #8fa98c;
         --card: #f1e4c8; --cardink: #3b352b; --soft: rgba(59, 53, 43, 0.07);
       }
@@ -23,7 +23,7 @@
       .scene { position: absolute; inset: 0; }
       .abs { position: absolute; }
       .emo { font-family: "Noto Color Emoji", sans-serif; line-height: 1; }
-      .title { left: 76px; right: 76px; text-align: center; font-weight: 900; letter-spacing: 0.01em; line-height: 1.25; }
+      .title { left: 76px; right: 76px; text-align: center; font-weight: 900; letter-spacing: 0.01em; line-height: 1.25; text-shadow: 0 2px 12px rgba(90,28,22,0.32); }
 
       /* 情境卡（S1） */
       .wisp { position: absolute; width: 70px; height: 70px; border-radius: 50%;
@@ -41,7 +41,7 @@
       .sense .emo { font-size: 72px; }
       .sense span { display: block; font-size: 30px; font-weight: 700; margin-top: 2px; }
       #s2-fn { left: 65px; width: 950px; top: 1300px; text-align: center; font-size: 32px; font-weight: 700; color: #6f6250; }
-      .bypass { position: absolute; background: var(--hi); color: var(--bg); border-radius: 999px;
+      .bypass { position: absolute; background: var(--hi); color: #ffffff; border-radius: 999px;
         padding: 10px 30px; font-size: 38px; font-weight: 900; white-space: nowrap; }
       #s2-mem { position: absolute; left: 648px; top: 548px; width: 250px; text-align: center; color: var(--cardink); }
       #s2-mem .b { font-size: 108px; }
@@ -52,24 +52,24 @@
 
       /* 安全清單（S4） */
       .lrow { left: 90px; width: 900px; height: 150px; border-radius: 30px; display: flex; align-items: center;
-        gap: 30px; padding: 0 44px; background: var(--soft); color: var(--ink); }
+        gap: 30px; padding: 0 44px; background: rgba(48,36,30,0.46); color: #ffffff; }
       .lrow .ic { width: 96px; text-align: center; font-size: 76px; flex: none; }
       .lrow .tx { font-size: 50px; font-weight: 900; line-height: 1.2; }
       .lrow .dotc { position: absolute; left: 0; top: 0; bottom: 0; width: 16px; border-radius: 30px 0 0 30px; }
 
       /* CTA（S5） */
-      #s5-q { left: 76px; right: 76px; top: 430px; text-align: center; font-size: 84px; font-weight: 900; line-height: 1.3; }
-      #s5-sub { left: 90px; right: 90px; top: 690px; text-align: center; font-size: 44px; font-weight: 700; color: var(--muted); }
+      #s5-q { left: 76px; right: 76px; top: 430px; text-align: center; font-size: 84px; font-weight: 900; line-height: 1.3; text-shadow: 0 2px 12px rgba(90,28,22,0.32); }
+      #s5-sub { left: 90px; right: 90px; top: 690px; text-align: center; font-size: 44px; font-weight: 700; color: rgba(255,255,255,0.92); text-shadow: 0 2px 12px rgba(90,28,22,0.32); }
       #s5-card { left: 110px; top: 800px; width: 860px; height: 360px; border-radius: 48px; background: #3b352b; color: #f3ead9;
         display: flex; align-items: center; justify-content: center; gap: 26px; }
       #s5-card .dm { font-size: 72px; font-weight: 900; }
       #s5-kw { display: inline-block; background: var(--r3); color: #2a2340; border-radius: 36px; padding: 8px 40px; font-size: 118px; font-weight: 900; line-height: 1.15; }
-      #s5-act { left: 65px; right: 65px; top: 1210px; text-align: center; font-size: 56px; font-weight: 700; }
+      #s5-act { left: 65px; right: 65px; top: 1210px; text-align: center; font-size: 56px; font-weight: 700; text-shadow: 0 2px 12px rgba(90,28,22,0.32); }
 
       /* 字幕 */
       #captions { position: absolute; left: 76px; right: 76px; top: 1375px; height: 205px; }
       #captions p { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: center;
-        text-align: center; font-size: 69px; font-weight: 700; line-height: 1.35; text-wrap: balance; color: var(--ink); opacity: 0; }
+        text-align: center; font-size: 69px; font-weight: 700; line-height: 1.35; text-wrap: balance; color: var(--ink); text-shadow: 0 2px 12px rgba(90,28,22,0.38); opacity: 0; }
       #captions .kw { color: #6b5ca0; font-weight: 900; }
     </style>
   </head>
