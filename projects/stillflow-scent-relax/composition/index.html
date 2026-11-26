@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="zh-Hant" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Noto Sans TC"; font-weight: 400; src: url("fonts/NotoSansTC-Regular.otf"); }
+      @font-face { font-family: "Noto Sans TC"; font-weight: 700; src: url("fonts/NotoSansTC-Bold.otf"); }
+      @font-face { font-family: "Noto Sans TC"; font-weight: 900; src: url("fonts/NotoSansTC-Black.otf"); }
+      @font-face { font-family: "Noto Color Emoji"; src: url("fonts/NotoColorEmoji.ttf"); }
+
+      /* STILLFLOW 暖米色亮底（brands/stillflow/brand.md） */
+      :root {
+        --bg: #f2e7d3; --ink: #3b352b; --muted: #8a7e6c; --hi: #3b352b;
+        --r1: #c98a6b; --r2: #d8b48a; --r3: #9b86c9; --r4: #8fa98c;
+        --card: #2e3730; --cardink: #f2ecdf; --soft: rgba(59, 53, 43, 0.07);
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--bg); }
+      body { font-family: "Noto Sans TC", "Noto Color Emoji", sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+      #root { position: relative; width: 1080px; height: 1920px; background: var(--bg); overflow: hidden; }
+      .scene { position: absolute; inset: 0; }
+      .abs { position: absolute; }
+      .emo { font-family: "Noto Color Emoji", sans-serif; line-height: 1; }
+      .title { left: 76px; right: 76px; text-align: center; font-weight: 900; letter-spacing: 0.01em; line-height: 1.25; }
+
+      /* 情境卡（S1） */
+      .wisp { position: absolute; width: 70px; height: 70px; border-radius: 50%;
+        background: radial-gradient(circle at 50% 40%, rgba(155,134,201,0.95), rgba(155,134,201,0.08) 70%); }
+      .scene-emo { position: absolute; font-size: 128px; }
+
+      /* 剖面卡（S2） */
+      #s2-card { left: 65px; top: 330px; width: 950px; height: 1000px; border-radius: 36px; background: var(--card); overflow: hidden; }
+      #s2-card svg { width: 100%; height: 100%; display: block; }
+      .xlbl { font: 700 37px "Noto Sans TC", sans-serif; fill: var(--cardink); }
+      .xlbl.sm { font-size: 30px; fill: #c7d2c3; }
+      .lead { stroke: var(--cardink); stroke-opacity: 0.6; stroke-width: 3; fill: none; }
+      .dot { fill: var(--cardink); }
+      .sense { position: absolute; width: 150px; text-align: center; color: var(--cardink); }
+      .sense .emo { font-size: 72px; }
+      .sense span { display: block; font-size: 30px; font-weight: 700; margin-top: 2px; }
+      #s2-fn { left: 65px; width: 950px; top: 1300px; text-align: center; font-size: 32px; font-weight: 700; color: var(--muted); }
+      .bypass { position: absolute; background: var(--hi); color: var(--bg); border-radius: 999px;
+        padding: 10px 30px; font-size: 38px; font-weight: 900; white-space: nowrap; }
+      #s2-mem { position: absolute; left: 648px; top: 548px; width: 250px; text-align: center; color: var(--cardink); }
+      #s2-mem .b { font-size: 108px; }
+      #s2-mem .row { font-size: 52px; margin-top: -8px; }
+
+      /* 小儀式（S3） */
+      .ritual-emo { font-size: 150px; }
+
+      /* 安全清單（S4） */
+      .lrow { left: 90px; width: 900px; height: 150px; border-radius: 30px; display: flex; align-items: center;
+        gap: 30px; padding: 0 44px; background: var(--soft); color: var(--ink); }
+      .lrow .ic { width: 96px; text-align: center; font-size: 76px; flex: none; }
+      .lrow .tx { font-size: 50px; font-weight: 900; line-height: 1.2; }
+      .lrow .dotc { position: absolute; left: 0; top: 0; bottom: 0; width: 16px; border-radius: 30px 0 0 30px; }
+
+      /* CTA（S5） */
+      #s5-q { left: 76px; right: 76px; top: 430px; text-align: center; font-size: 84px; font-weight: 900; line-height: 1.3; }
+      #s5-sub { left: 90px; right: 90px; top: 690px; text-align: center; font-size: 44px; font-weight: 700; color: var(--muted); }
+      #s5-card { left: 110px; top: 800px; width: 860px; height: 360px; border-radius: 48px; background: var(--card); color: var(--cardink);
+        display: flex; align-items: center; justify-content: center; gap: 26px; }
+      #s5-card .dm { font-size: 72px; font-weight: 900; }
+      #s5-kw { display: inline-block; background: var(--r3); color: #2a2340; border-radius: 36px; padding: 8px 40px; font-size: 118px; font-weight: 900; line-height: 1.15; }
+      #s5-act { left: 65px; right: 65px; top: 1210px; text-align: center; font-size: 56px; font-weight: 700; }
+
+      /* 字幕 */
+      #captions { position: absolute; left: 76px; right: 76px; top: 1375px; height: 205px; }
+      #captions p { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: center;
+        text-align: center; font-size: 69px; font-weight: 700; line-height: 1.35; text-wrap: balance; color: var(--ink); opacity: 0; }
+      #captions .kw { color: #6b5ca0; font-weight: 900; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="88.15" data-width="1080" data-height="1920">
+
+      <audio id="voice" src="silent.m4a" data-start="0" data-duration="88.15" data-track-index="9" data-volume="1"></audio>
+
+      <!-- S1：開場情境（0–12.90） -->
+      <section id="s1" class="clip scene" data-start="0" data-duration="12.90" data-track-index="1">
+        <h1 id="s1-title" class="abs title" style="top:250px;font-size:76px">為什麼很多人聞到味道，<br />會覺得比較容易放鬆？</h1>
+        <div id="s1-w1" class="wisp" style="left:300px;top:1180px"></div>
+        <div id="s1-w2" class="wisp" style="left:560px;top:1240px;width:54px;height:54px"></div>
+        <div id="s1-w3" class="wisp" style="left:740px;top:1150px;width:46px;height:46px"></div>
+        <div id="s1-scene" class="abs" style="left:0;right:0;top:760px;text-align:center">
+          <span id="s1-moon" class="emo scene-emo abs" style="left:300px;top:0">🌙</span>
+          <span id="s1-sofa" class="emo scene-emo abs" style="left:476px;top:0">🛋️</span>
+          <span id="s1-dish" class="emo scene-emo abs" style="left:652px;top:0">🍽️</span>
+        </div>
+      </section>
+
+      <!-- S2：頭部剖面（12.90–50.15） -->
+      <section id="s2" class="clip scene" data-start="12.90" data-duration="37.25" data-track-index="1">
+        <h1 id="s2-title" class="abs title" style="top:210px;font-size:70px;font-weight:700">氣味訊號在大腦走的路</h1>
+        <div id="s2-card" class="abs">
+          <svg viewBox="0 0 950 1000" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="fan" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="4" markerHeight="4" orient="auto">
+                <path d="M0,0 L10,5 L0,10 z" fill="#c7d2c3" />
+              </marker>
+            </defs>
+            <!-- 頭部（側面，面朝左） -->
+            <g id="s2-head">
+              <ellipse cx="545" cy="470" rx="355" ry="398" fill="#3c4a40" />
+              <path d="M205,440 C150,470 150,532 205,560 L252,545 C218,516 218,486 252,456 Z" fill="#3c4a40" />
+              <ellipse id="s2-brain" cx="590" cy="438" rx="268" ry="300" fill="#47584c" />
+              <path id="s2-cavity" d="M212,540 C242,470 252,420 300,386 L336,414 C292,450 278,498 258,556 Z" fill="#5b6e60" />
+              <ellipse id="s2-bulb" cx="318" cy="378" rx="42" ry="28" fill="#d8b48a" />
+            </g>
+            <!-- 路線 A：其他感官 → 視丘 → 分送 -->
+            <g id="s2-routeA">
+              <path id="s2-la1" class="lead" d="M165,300 L520,452" pathLength="1" style="stroke:#c7d2c3;stroke-opacity:.55;stroke-width:5" />
+              <path id="s2-la2" class="lead" d="M165,480 L500,470" pathLength="1" style="stroke:#c7d2c3;stroke-opacity:.55;stroke-width:5" />
+              <path id="s2-la3" class="lead" d="M165,660 L515,505" pathLength="1" style="stroke:#c7d2c3;stroke-opacity:.55;stroke-width:5" />
+              <circle id="s2-thal" cx="560" cy="470" r="60" fill="#8fa98c" />
+            </g>
+            <!-- 路線 B：嗅覺直達邊緣系統 -->
+            <path id="s2-rb" d="M300,470 C360,610 400,678 470,655" fill="none" stroke="#9b86c9" stroke-width="15" stroke-linecap="round" pathLength="1" style="stroke-dasharray:1 1.2;stroke-dashoffset:1.1" />
+            <ellipse id="s2-limbic" cx="470" cy="652" rx="150" ry="95" fill="#9b86c9" opacity="0.22" />
+            <ellipse id="s2-limbic-ring" cx="470" cy="652" rx="150" ry="95" fill="none" stroke="#9b86c9" stroke-width="6" opacity="0" />
+            <!-- 主角：氣味分子 -->
+            <g id="s2-mol">
+              <circle r="34" fill="none" stroke="#f2ecdf" stroke-width="5" opacity="0.9" />
+              <circle r="22" fill="#9b86c9" stroke="#f2ecdf" stroke-width="4" />
+            </g>
+            <!-- 標籤 -->
+            <g id="s2-lab-nose"><path class="lead" d="M140,360 L140,388 L205,470" pathLength="1" /><circle class="dot" cx="205" cy="470" r="7" /><text class="xlbl" x="140" y="344">鼻子</text></g>
+            <g id="s2-lab-thal"><path class="lead" d="M700,300 L700,330 L600,450" pathLength="1" /><circle class="dot" cx="600" cy="450" r="7" /><text class="xlbl" x="700" y="286">視丘</text><text class="xlbl sm" x="700" y="326">轉運站</text></g>
+            <g id="s2-lab-limbic"><path class="lead" d="M560,800 L560,772 L500,700" pathLength="1" /><circle class="dot" cx="500" cy="700" r="7" /><text class="xlbl" x="560" y="840">邊緣系統</text><text class="xlbl sm" x="560" y="880">情緒・記憶</text></g>
+          </svg>
+          <!-- 感官 emoji（疊在剖面卡左側） -->
+          <div id="s2-eye" class="sense abs" style="left:18px;top:245px"><span class="emo">👁️</span><span>視覺</span></div>
+          <div id="s2-ear" class="sense abs" style="left:18px;top:425px"><span class="emo">👂</span><span>聽覺</span></div>
+          <div id="s2-skin" class="sense abs" style="left:18px;top:605px"><span class="emo">✋</span><span>觸覺</span></div>
+          <!-- 回憶泡泡 -->
+          <div id="s2-mem" class="abs"><span class="emo b">💭</span><div class="row"><span class="emo">🏠</span><span class="emo">☕</span></div></div>
+        </div>
+        <div id="s2-bypass" class="bypass abs" style="left:620px;top:690px">不先經過視丘</div>
+        <div id="s2-fn" class="abs">示意圖，非真實解剖比例</div>
+      </section>
+
+      <!-- S3：放鬆的小儀式（50.15–57.80） -->
+      <section id="s3" class="clip scene" data-start="50.15" data-duration="7.65" data-track-index="1">
+        <div id="s3-emo" class="abs" style="left:0;right:0;top:560px;text-align:center">
+          <span class="emo ritual-emo">🕯️</span><span class="emo ritual-emo" style="margin-left:40px">🌿</span>
+        </div>
+        <div id="s3-tx" class="abs title" style="top:860px;font-size:76px;font-weight:900">香氣，是照顧自己的<br />一個小儀式</div>
+      </section>
+
+      <!-- S4：安全小提醒（57.80–70.85） -->
+      <section id="s4" class="clip scene" data-start="57.80" data-duration="13.05" data-track-index="1">
+        <h1 id="s4-title" class="abs title" style="top:300px;font-size:72px;font-weight:900">安全小提醒</h1>
+        <div id="s4-r1" class="abs lrow" style="top:560px"><span class="dotc" style="background:var(--r4)"></span><span class="ic emo">💧</span><span class="tx">稀釋後再接觸皮膚</span></div>
+        <div id="s4-r2" class="abs lrow" style="top:760px"><span class="dotc" style="background:var(--r2)"></span><span class="ic emo">🚫</span><span class="tx">不要直接吞下肚</span></div>
+        <div id="s4-r3" class="abs lrow" style="top:960px"><span class="dotc" style="background:var(--r1)"></span><span class="ic emo">👶</span><span class="tx">孕婦、嬰幼兒、毛小孩更小心</span></div>
+      </section>
+
+      <!-- S5：結尾 CTA（70.85–88.15）；文字由 project.json 填入 -->
+      <section id="s5" class="clip scene" data-start="70.85" data-duration="17.30" data-track-index="1">
+        <div id="s5-q" class="abs" data-cta="question">想知道自己適合從哪一種精油開始嗎？</div>
+        <div id="s5-sub" class="abs">每個人的生活需求與使用情境都不同</div>
+        <div id="s5-card" class="abs">
+          <span class="emo" style="font-size:96px">💬</span>
+          <span class="dm">私訊</span>
+          <span id="s5-kw" data-cta="keyword">精油</span>
+        </div>
+        <div id="s5-act" class="abs" data-cta="action-tail">做 3 分鐘芳療需求測驗</div>
+      </section>
+
+      <!-- 字幕（prepare-composition.py 依 transcript.srt 產生） -->
+      <div id="captions" class="clip" data-start="0" data-duration="88.15" data-track-index="5" data-hide-from="70.85">
+        <!-- CAPTIONS:BEGIN -->
+        <p data-s="0.60" data-e="3.60">為什麼很多人聞到某些味道</p>
+        <p data-s="3.60" data-e="6.75">會覺得比較容易放鬆下來？</p>
+        <p data-s="6.75" data-e="9.00">小孩睡了、碗也洗完了</p>
+        <p data-s="9.00" data-e="10.50">你終於坐下來</p>
+        <p data-s="10.50" data-e="12.90">卻還是放鬆不下來？</p>
+        <p data-s="12.90" data-e="15.40">其實有一個很快的方法</p>
+        <p data-s="15.40" data-e="17.55">就是用你的鼻子</p>
+        <p data-s="17.55" data-e="19.30">我們的眼睛、耳朵</p>
+        <p data-s="19.30" data-e="21.30">皮膚接收到的訊號</p>
+        <p data-s="21.30" data-e="23.55">大多要先經過大腦裡</p>
+        <p data-s="23.55" data-e="25.80">一個叫「視丘」的轉運站</p>
+        <p data-s="25.80" data-e="27.45">再分送出去</p>
+        <p data-s="27.45" data-e="29.35">但嗅覺不一樣</p>
+        <p data-s="29.35" data-e="31.85">氣味分子進到鼻子以後</p>
+        <p data-s="31.85" data-e="34.85">主要的訊號不用先經過視丘</p>
+        <p data-s="34.85" data-e="37.10">可以直接傳到大腦裡</p>
+        <p data-s="37.10" data-e="39.35">管情緒和記憶的地方</p>
+        <p data-s="39.35" data-e="41.50">也就是「邊緣系統」</p>
+        <p data-s="41.50" data-e="43.25">所以你才會在聞</p>
+        <p data-s="43.25" data-e="45.25">到某個味道的時候</p>
+        <p data-s="45.25" data-e="47.25">一瞬間想起外婆家</p>
+        <p data-s="47.25" data-e="50.15">或是某個很安心的午後</p>
+        <p data-s="50.15" data-e="52.65">這也是為什麼香氣可以</p>
+        <p data-s="52.65" data-e="54.90">幫你營造放鬆的氛圍</p>
+        <p data-s="54.90" data-e="57.80">成為照顧自己的小儀式</p>
+        <p data-s="57.80" data-e="59.30">不過要提醒你</p>
+        <p data-s="59.30" data-e="62.30">精油要稀釋過才能接觸皮膚</p>
+        <p data-s="62.30" data-e="64.20">也不要直接吞</p>
+        <p data-s="64.20" data-e="65.45">家裡有孕婦</p>
+        <p data-s="65.45" data-e="67.70">小嬰兒或毛小孩的話</p>
+        <p data-s="67.70" data-e="70.85">選擇和使用方式要更小心</p>
+        <p data-s="70.85" data-e="72.85">你知道自己適合從</p>
+        <p data-s="72.85" data-e="75.25">哪一種精油開始嗎？</p>
+        <p data-s="75.25" data-e="77.25">每個人的生活需求</p>
+        <p data-s="77.25" data-e="79.65">與使用情境都不同</p>
+        <p data-s="79.65" data-e="80.90">私訊我「精油」</p>
+        <p data-s="80.90" data-e="83.65">做個 3 分鐘芳療需求測驗</p>
+        <p data-s="83.65" data-e="87.05">找出適合你的日常芳療方向</p>
+        <!-- CAPTIONS:END -->
+      </div>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const fadeUp = (s, t, d = 0.45) => tl.fromTo(s, { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: d, ease: "power2.out" }, t);
+      const slideIn = (s, t) => tl.fromTo(s, { opacity: 0, x: -54 }, { opacity: 1, x: 0, duration: 0.45, ease: "power2.out" }, t);
+      const pop = (s, t) => tl.fromTo(s, { opacity: 0, y: -60, scale: 0.6, transformOrigin: "50% 50%" }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(2.2)" }, t);
+      const fadeIn = (s, t, d = 0.35) => tl.fromTo(s, { opacity: 0 }, { opacity: 1, duration: d, ease: "none" }, t);
+      const fadeTo = (s, t, to, d = 0.4) => tl.to(s, { opacity: to, duration: d, ease: "none" }, t);
+      const drawLine = (s, t, d = 0.4) => tl.fromTo(s, { attr: { "stroke-dashoffset": 1 } }, { attr: { "stroke-dashoffset": 0 }, duration: d, ease: "power1.out" }, t);
+      const breatheOpacity = (s, t, end, lo = 0.45) => {
+        const n = Math.max(1, Math.floor((end - t) / 1.1));
+        tl.fromTo(s, { opacity: 1 }, { opacity: lo, duration: 0.55, ease: "sine.inOut", yoyo: true, repeat: n * 2 - 1 }, t);
+      };
+
+      /* ---------- S1：開場（0–12.90） ---------- */
+      // 標題第 0 格就在（縮圖）；氣味分子飄上來
+      [["#s1-w1", 0.4], ["#s1-w2", 0.9], ["#s1-w3", 1.3]].forEach(([s, t]) => {
+        tl.fromTo(s, { opacity: 0, y: 0 }, { opacity: 0.9, duration: 0.6, ease: "power1.out" }, t);
+        tl.to(s, { y: -180, opacity: 0, duration: 4.5, ease: "none" }, t + 0.6);
+      });
+      gsap.set(["#s1-moon", "#s1-sofa", "#s1-dish"], { opacity: 0 });
+      fadeUp("#s1-moon", 6.9); fadeUp("#s1-sofa", 7.4); fadeUp("#s1-dish", 7.9);
+      // 推鏡進鼻子：整個情境放大淡出，接到剖面
+      tl.to("#s1", { scale: 1.7, opacity: 0, duration: 1.0, ease: "power2.in", transformOrigin: "40% 78%" }, 11.7);
+
+      /* ---------- S2：頭部剖面（12.90–50.15） ---------- */
+      // L3（12.90–17.15）：剖面出現、鼻子、氣味分子進入
+      gsap.set(["#s2-title", "#s2-la1", "#s2-la2", "#s2-la3", "#s2-thal", "#s2-limbic-ring", "#s2-lab-nose", "#s2-lab-thal", "#s2-lab-limbic", "#s2-eye", "#s2-ear", "#s2-skin", "#s2-mem", "#s2-bypass"], { opacity: 0 });
+      gsap.set("#s2-mol", { x: 250, y: 470, opacity: 0 });
+      fadeUp("#s2-title", 12.95);
+      tl.fromTo("#s2-card", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 13.0);
+      fadeIn("#s2-fn", 13.4);
+      fadeIn("#s2-lab-nose", 13.7);
+      tl.fromTo("#s2-mol", { opacity: 0, x: 120, y: 470 }, { opacity: 1, x: 250, y: 470, duration: 0.8, ease: "power2.out" }, 14.4);
+      // L4（17.55–27.05）：其他感官 → 視丘 → 分送
+      fadeUp("#s2-eye", 17.7); fadeIn("#s2-la1", 18.2);
+      fadeUp("#s2-ear", 18.9); fadeIn("#s2-la2", 19.4);
+      fadeUp("#s2-skin", 20.1); fadeIn("#s2-la3", 20.6);
+      pop("#s2-thal", 21.6); fadeIn("#s2-lab-thal", 22.2);
+      tl.to("#s2-thal", { scale: 1.12, duration: 0.45, ease: "sine.inOut", transformOrigin: "50% 50%", yoyo: true, repeat: 1 }, 24.3);
+      // L5（27.45–28.95）：轉折，路線 A 變淡（整組 1→0.32），拉回氣味分子
+      fadeTo("#s2-routeA", 27.5, 0.32, 0.5);
+      tl.to("#s2-mol", { scale: 1.25, duration: 0.3, ease: "power1.out", transformOrigin: "50% 50%", yoyo: true, repeat: 1 }, 27.9);
+      // L6（29.35–41.10）：氣味分子直達邊緣系統，繞過視丘
+      tl.fromTo("#s2-rb", { attr: { "stroke-dashoffset": 1.1 } }, { attr: { "stroke-dashoffset": 0 }, duration: 1.2, ease: "power1.out" }, 29.6);
+      tl.to("#s2-mol", { x: 360, y: 585, duration: 1.0, ease: "power1.inOut" }, 30.2);
+      tl.to("#s2-mol", { x: 470, y: 650, duration: 1.1, ease: "power1.inOut" }, 31.3);
+      fadeTo("#s2-limbic", 33.6, 1, 0.6);
+      fadeIn("#s2-limbic-ring", 33.9); breatheOpacity("#s2-limbic-ring", 34.6, 41.0, 0.3);
+      fadeUp("#s2-lab-limbic", 34.4);
+      fadeUp("#s2-bypass", 36.2);
+      // L7（41.50–50.15）：喚起回憶
+      pop("#s2-mem", 41.7); breatheOpacity("#s2-mem", 43.2, 49.9, 0.75);
+
+      /* ---------- S3：小儀式（50.15–57.80） ---------- */
+      gsap.set(["#s3-emo", "#s3-tx"], { opacity: 0 });
+      fadeUp("#s3-emo", 50.4, 0.6); fadeUp("#s3-tx", 51.2, 0.6);
+
+      /* ---------- S4：安全清單（57.80–70.85） ---------- */
+      gsap.set(["#s4-title", "#s4-r1", "#s4-r2", "#s4-r3"], { opacity: 0 });
+      fadeUp("#s4-title", 57.9);
+      slideIn("#s4-r1", 58.3);
+      slideIn("#s4-r2", 61.0);
+      slideIn("#s4-r3", 64.3);
+
+      /* ---------- S5：CTA（70.85–88.15） ---------- */
+      gsap.set(["#s5-q", "#s5-sub", "#s5-card", "#s5-act"], { opacity: 0 });
+      fadeUp("#s5-q", 71.0);
+      fadeUp("#s5-sub", 73.2);
+      pop("#s5-card", 75.6);
+      tl.fromTo("#s5-kw", { scale: 1 }, { scale: 1.06, duration: 0.55, ease: "sine.inOut", yoyo: true, repeat: 19, transformOrigin: "50% 50%" }, 76.2);
+      fadeUp("#s5-act", 77.0);
+
+      /* ---------- 字幕 ---------- */
+      const hideFrom = +document.getElementById("captions").dataset.hideFrom || Infinity;
+      document.querySelectorAll("#captions p").forEach((p) => {
+        const s = +p.dataset.s, e = Math.min(+p.dataset.e, hideFrom);
+        if (s >= hideFrom) return;
+        tl.set(p, { opacity: 1 }, s);
+        tl.set(p, { opacity: 0 }, e);
+      });
+
+      tl.set({}, {}, 88.15);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
