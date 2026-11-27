@@ -41,3 +41,8 @@ projects/*/storyboard/qa-sheet.jpg
 projects/*/storyboard/qa-final-facebox.jpg
 projects/*/composition-overlay/
 projects/*/composition-captions/
+
+# v2 B-roll 素材（Pixabay 下載的影片/縮圖、總覽圖）不進 Git
+projects/*/broll/candidates/
+projects/*/broll/clips/
+projects/*/broll/overview*.png
