@@ -46,3 +46,8 @@ projects/*/composition-captions/
 projects/*/broll/candidates/
 projects/*/broll/clips/
 projects/*/broll/overview*.png
+
+# v2 composition 內的素材（下載/裁切的影片、裁出的大腦圖）不進 Git
+projects/*/composition/bg_*.mp4
+projects/*/composition/brain_sagittal.png
+projects/*/broll/check/
