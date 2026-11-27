@@ -18,6 +18,7 @@ description: 把繁體中文的知識型口播（任何產業：健康、睡眠�
 | `references/design-system.md` ＋ `brands/<品牌>/brand.md` | 步驟 2 寫畫面描述、步驟 4 做畫面前（brand.md 的配色覆蓋 design-system 的色票） |
 | `references/cta.md` | 做結尾 CTA 時 |
 | `references/cross-section.md` | 主題講到身體構造（皮膚、脂肪細胞、胃、血管…）要畫剖面時；範例 `reference/cross-section-fat.html` |
+| `references/pixabay.md` | 需要**實拍畫面**（海浪、食物、城市…）當 B-roll，想從 Pixabay 抓免費照片／影片時 |
 | `reference/aspartame-2b.html`（repo 根目錄） | 步驟 4 做畫面前，看實際範例 |
 
 ## 專案資料夾
@@ -80,6 +81,7 @@ projects/<影片名稱>/
 - 逐句判斷要不要畫面、畫面類型（全／小／字／CTA）、畫面描述、理由。
 - 秒數一律取自 `timing/lines.json`、`timing/words.json`，不要估。
 - 畫面描述要用 `design-system.md` 的元件與顏色名稱。
+- 需要**真實畫面**（海浪、食物、城市、運動…）而非動畫圖表時，可從 Pixabay 抓免費實拍照片／影片當背景或全螢幕 B-roll，做法見 `references/pixabay.md`；在畫面描述寫清楚用哪個素材（檔名），素材出處另記在 `storyboard/pixabay-credits.md`。概念圖、數字、剖面仍用 Hyperframes 動畫。
 - 表格後附：畫面清單、規則自檢（連續類型 ≤ 2、每畫面 ≥ 1.5 秒）、逐字稿疑點、需要使用者決定的事。
 - sources.md：畫面上每個數字／分級／研究結論一條，狀態「待使用者確認」。
 
@@ -138,6 +140,7 @@ npx hyperframes doctor
    python3 .claude/skills/broll-video/scripts/prepare-composition.py projects/<名稱>
    ```
    會複製字型、GSAP、音檔到 composition/（都不進 Git），依 transcript.srt 產生字幕、依 project.json 填 CTA。
+   - **用到 Pixabay 實拍素材**：`prepare-composition.py` 不會自動搬這些檔，請自己把 `inputs/broll/pixabay/` 的素材複製進 `composition/`，用 `<video>`／`<img>` 當某個 scene 的背景層（直式用 `object-fit: cover` 填滿 1080×1920），再疊字幕／標題；`.gitignore` 已設定 `composition/*.mp4` 等不進 Git。背景上的字要確認對比夠，必要時加半透明深色遮罩。
 4. 預覽（可選）：`npx hyperframes preview --background`，看完 `npx hyperframes preview --stop`。
 5. 渲染前先過步驟 6 的 lint 與 check，再依下方「兩種模式」渲染。
 

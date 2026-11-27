@@ -89,6 +89,15 @@ else
   else warn "Chrome" "找不到系統 Chrome（渲染時可執行 npx hyperframes browser ensure 自動下載）"; fi
 fi
 
+# 7. Pixabay 素材金鑰（可選；只有要抓實拍 B-roll 才需要）
+if [ -n "$PIXABAY_API_KEY" ]; then
+  ok "Pixabay 金鑰" "已設定（環境變數 PIXABAY_API_KEY）"
+elif [ -f "$ROOT/.pixabay-key" ] && grep -qE '[^[:space:]#]' "$ROOT/.pixabay-key"; then
+  ok "Pixabay 金鑰" "已設定（.pixabay-key）"
+else
+  warn "Pixabay 金鑰" "未設定（可選；要抓 Pixabay 實拍素材才需要，見 references/pixabay.md）"
+fi
+
 echo
 if [ ${#missing[@]} -eq 0 ]; then
   echo "全部就緒 ✓  可以開始製作。"
