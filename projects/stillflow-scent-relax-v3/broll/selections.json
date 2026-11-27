@@ -1,0 +1,77 @@
+{
+ "open": {
+  "zh": "開場 疲累癱沙發",
+  "file": "open_photo.png",
+  "user": "使用者提供"
+ },
+ "diffuser": {
+  "zh": "擴香霧氣",
+  "file": "diffuser.png",
+  "user": "使用者提供"
+ },
+ "oil": {
+  "zh": "精油滴管稀釋",
+  "file": "oil.png",
+  "user": "使用者提供"
+ },
+ "vmem": {
+  "zh": "L7 外婆家／午後陽光",
+  "id": 152740,
+  "w": 1920,
+  "h": 1080,
+  "dur": 17,
+  "dl_url": "https://cdn.pixabay.com/video/2023/03/01/152740-803732906_large.mp4",
+  "user": "dangtran_official",
+  "page": "https://pixabay.com/videos/id-152740/",
+  "ai": false,
+  "file": "vmem.mp4"
+ },
+ "v08": {
+  "zh": "L8 放鬆氛圍",
+  "id": 143419,
+  "w": 3840,
+  "h": 2160,
+  "dur": 30,
+  "dl_url": "https://cdn.pixabay.com/video/2022/12/18/143419-782363231_large.mp4",
+  "user": "NickyPe",
+  "page": "https://pixabay.com/videos/id-143419/",
+  "ai": false,
+  "file": "v08.mp4"
+ },
+ "v10a": {
+  "zh": "L10 嬰兒",
+  "id": 79155,
+  "w": 2048,
+  "h": 1080,
+  "dur": 36,
+  "dl_url": "https://cdn.pixabay.com/video/2021/06/27/79155-568265335_large.mp4",
+  "user": "Kathanhero",
+  "page": "https://pixabay.com/videos/id-79155/",
+  "ai": false,
+  "file": "v10a.mp4"
+ },
+ "v10b": {
+  "zh": "L10 寵物",
+  "id": 234409,
+  "w": 3840,
+  "h": 2160,
+  "dur": 12,
+  "dl_url": "https://cdn.pixabay.com/video/2024/10/02/234409_large.mp4",
+  "user": "MountainDweller",
+  "page": "https://pixabay.com/videos/id-234409/",
+  "ai": false,
+  "file": "v10b.mp4"
+ },
+ "CTA": {
+  "zh": "結尾薰衣草",
+  "id": 80417,
+  "w": 3840,
+  "h": 2160,
+  "dur": 19,
+  "dl_url": "https://cdn.pixabay.com/video/2021/07/06/80417-572395833_large.mp4",
+  "user": "Kmeel_com",
+  "page": "https://pixabay.com/videos/id-80417/",
+  "ai": false,
+  "file": "CTA.mp4"
+ }
+}

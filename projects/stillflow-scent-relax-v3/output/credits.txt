@@ -1,0 +1,20 @@
+STILLFLOW v3 — 素材來源（credits）
+
+【使用者提供的照片】
+  開場（疲累癱沙發）：open_photo.png
+  擴香霧氣：diffuser.png
+  精油滴管稀釋：oil.png
+  回憶・外婆家：grandma.png
+
+【Pixabay 影片（Pixabay Content License）】
+  L8 放鬆氛圍：ID 143419 · by NickyPe · https://pixabay.com/videos/id-143419/
+  L10 嬰兒：ID 79155 · by Kathanhero · https://pixabay.com/videos/id-79155/
+  L10 寵物：ID 234409 · by MountainDweller · https://pixabay.com/videos/id-234409/
+  結尾薰衣草：ID 80417 · by Kmeel_com · https://pixabay.com/videos/id-80417/
+
+【大腦插畫】
+  Pixabay 矢狀切面 by OpenClipart-Vectors · https://pixabay.com/vectors/brain-human-anatomy-medicine-150952/
+  （裁右側矢狀切面、加中文標註與動畫，僅示意，非真實解剖比例）
+
+授權：https://pixabay.com/service/license-summary/
+使用者提供之照片其授權由使用者自負。
