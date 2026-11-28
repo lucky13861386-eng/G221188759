@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<style>
+  @font-face { font-family:"Noto Sans TC"; font-weight:700; src:url("NotoSansTC-Bold.otf"); }
+  @font-face { font-family:"Noto Sans TC"; font-weight:900; src:url("NotoSansTC-Black.otf"); }
+  html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#f4ead6;font-family:"Noto Sans TC",sans-serif;}
+  #frame{position:relative;width:1080px;height:1920px;overflow:hidden;background:radial-gradient(130% 100% at 50% 40%,#f7eedd 0%,#efdcc2 62%,#e4cba7 100%);}
+  .lbl{position:absolute;font-size:40px;font-weight:900;color:#4a3320;background:rgba(255,250,240,.95);border-radius:16px;padding:8px 22px;white-space:nowrap;box-shadow:0 6px 20px rgba(120,80,40,.22);}
+  .lbl small{font-weight:700;font-size:28px;color:#8a6a40;}
+  #tag{position:absolute;right:30px;bottom:30px;font-size:30px;color:#9a7a50;font-weight:700;}
+  #title{position:absolute;left:0;right:0;top:150px;text-align:center;font-size:62px;font-weight:900;color:#4a3320;}
+  .leadline{stroke:#8a6a40;stroke-width:3;fill:none;opacity:.6;}
+</style>
+</head>
+<body>
+<div id="frame">
+  <div id="title"></div>
+  <svg id="svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+    <defs>
+      <radialGradient id="gGold" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffe6a8"/><stop offset="45%" stop-color="#f3b24d" stop-opacity=".8"/><stop offset="100%" stop-color="#f3b24d" stop-opacity="0"/></radialGradient>
+      <radialGradient id="gLav" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#c9b6ef"/><stop offset="45%" stop-color="#9b86c9" stop-opacity=".85"/><stop offset="100%" stop-color="#9b86c9" stop-opacity="0"/></radialGradient>
+      <filter id="blur"><feGaussianBlur stdDeviation="7"/></filter>
+      <linearGradient id="cortex" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3ddc6"/><stop offset="1" stop-color="#e7c8a9"/></linearGradient>
+    </defs>
+
+    <!-- 相機群組 -->
+    <g id="world" transform="translate(0,0) scale(1)">
+      <!-- 頭部側面剪影（面朝左，鼻子在左） -->
+      <path id="head" d="M560,520 C470,520 405,560 378,628 C360,672 356,706 338,735
+        C322,760 318,786 300,804 C285,820 292,838 318,842 L352,846
+        C360,874 352,900 372,918 C356,944 360,966 388,978 C372,1012 392,1050 452,1066
+        C470,1120 520,1150 556,1156 L556,1300 L720,1300 C760,1150 812,980 812,820
+        C812,660 712,520 560,520 Z"
+        fill="#f0dcc4" stroke="#caa37a" stroke-width="5"/>
+
+      <!-- 大腦皮質輪廓（矢狀） -->
+      <g id="brain">
+        <path id="cortex-sh" d="M470,600 C420,620 395,675 402,720 C370,735 360,775 382,800
+          C372,836 388,864 420,872 C430,905 470,922 512,916 C520,956 572,966 612,944
+          C690,948 748,905 756,835 C800,815 806,735 762,705 C760,640 700,598 632,604
+          C600,585 520,582 470,600 Z"
+          fill="url(#cortex)" stroke="#b98f64" stroke-width="4"/>
+        <!-- 腦溝暗示 -->
+        <path d="M470,640 C520,628 600,630 660,648 M452,700 C540,686 640,690 720,712 M470,760 C560,748 650,756 726,780 M500,826 C570,820 640,828 700,848"
+          fill="none" stroke="#b98f64" stroke-opacity=".45" stroke-width="3"/>
+      </g>
+
+      <!-- 鼻腔 -->
+      <path id="nasal" d="M332,846 C356,852 372,884 372,918 L350,968 C330,948 320,900 332,846 Z" fill="#efc9a0" stroke="#caa37a" stroke-width="3"/>
+      <!-- 嗅徑 -->
+      <path id="tract" d="M452,848 L536,862" stroke="#e0a955" stroke-width="10" stroke-linecap="round" opacity=".9"/>
+      <!-- 嗅球 -->
+      <ellipse id="bulb" cx="438" cy="846" rx="30" ry="18" fill="#e9a94e" stroke="#c9842f" stroke-width="3"/>
+      <!-- 視丘 -->
+      <ellipse id="thal" cx="576" cy="772" rx="46" ry="38" fill="#9bb08f" stroke="#6f8f72" stroke-width="3"/>
+      <!-- 杏仁核 -->
+      <path id="amy" d="M500,884 C486,878 478,894 486,910 C496,924 520,922 524,904 C526,890 514,882 500,884 Z" fill="#c79ad8" stroke="#9a6cb4" stroke-width="3"/>
+      <!-- 海馬迴（捲曲） -->
+      <path id="hip" d="M556,902 C590,900 606,924 592,948 C580,968 548,966 544,944 C542,928 556,924 566,932" fill="none" stroke="#9b86c9" stroke-width="14" stroke-linecap="round"/>
+
+      <!-- 發光層（預設隱藏，kf 開啟） -->
+      <circle id="glow-nasal" cx="352" cy="905" r="80" fill="url(#gGold)" opacity="0"/>
+      <circle id="glow-bulb" cx="438" cy="846" r="95" fill="url(#gGold)" opacity="0"/>
+      <circle id="glow-thal" cx="576" cy="772" r="80" fill="#9bb08f" opacity="0"/>
+      <circle id="glow-amy" cx="504" cy="898" r="80" fill="url(#gLav)" opacity="0"/>
+      <circle id="glow-hip" cx="572" cy="936" r="90" fill="url(#gLav)" opacity="0"/>
+
+      <!-- 光路徑 鼻→嗅球→邊緣系統 -->
+      <path id="path" d="M330,930 C360,890 400,862 438,846 C470,852 510,860 540,900 C556,918 566,928 572,936"
+        fill="none" stroke="#ffcf7a" stroke-width="9" stroke-linecap="round" opacity="0" style="filter:drop-shadow(0 0 8px rgba(255,190,90,.9))"/>
+
+      <!-- 視丘打叉 -->
+      <g id="thalx" opacity="0"><circle cx="576" cy="772" r="44" fill="rgba(150,150,150,.88)"/><path d="M552,748 L600,796 M600,748 L552,796" stroke="#ce4a3c" stroke-width="10" stroke-linecap="round"/></g>
+
+      <!-- 剖面切割線 -->
+      <line id="cutline" x1="300" y1="548" x2="845" y2="1120" stroke="#fff3d6" stroke-width="12" opacity="0" style="filter:drop-shadow(0 0 14px rgba(255,220,150,.95))"/>
+      <!-- 香氣粒子（擴香→鼻） -->
+      <g id="particles" fill="#f3b24d">
+        <circle cx="180" cy="900" r="9"/><circle cx="235" cy="868" r="7"/><circle cx="268" cy="918" r="8"/>
+        <circle cx="210" cy="946" r="6"/><circle cx="300" cy="888" r="7"/>
+      </g>
+    </g>
+  </svg>
+
+  <!-- 標籤（螢幕固定層；kf 定位） -->
+  <div id="lab-bulb" class="lbl" style="display:none">嗅球</div>
+  <div id="lab-thal" class="lbl" style="display:none">視丘<small>　轉運站</small></div>
+  <div id="lab-amy" class="lbl" style="display:none">杏仁核<small>　情緒</small></div>
+  <div id="lab-hip" class="lbl" style="display:none">海馬迴<small>　記憶</small></div>
+  <!-- 回憶泡泡 -->
+  <div id="bubble" style="display:none;position:absolute;width:300px;height:300px;border-radius:50%;background:#fff7ec;box-shadow:0 12px 44px rgba(120,80,40,.3);display:flex;flex-direction:column;align-items:center;justify-content:center;">
+    <b style="font-size:48px;font-weight:900;color:#4a3320">外婆家</b><span style="font-size:34px;color:#8a6a40;margin-top:6px">安心的午後</span></div>
+  <div id="tag">示意圖</div>
+</div>
+
+<script>
+const q=new URLSearchParams(location.search), kf=+(q.get("kf")||1);
+const $=s=>document.querySelector(s);
+function cam(px,py,s){ $("#world").setAttribute("transform",`translate(${540-px*s},${960-py*s}) scale(${s})`); }
+function show(id,o=1){ const e=$(id); if(e) e.style.opacity=o; if(e&&e.tagName!=='DIV') e.setAttribute("opacity",o); }
+function lab(id,x,y){ const e=$(id); e.style.display="block"; e.style.left=x+"px"; e.style.top=y+"px"; }
+
+if(kf===1){ // 頭部剪影 + 香氣粒子（內部先不顯示）
+  $("#title").textContent="就是用你的鼻子";
+  cam(540,870,1.0);
+  ["#brain","#nasal","#tract","#bulb","#thal","#amy","#hip"].forEach(id=>$(id).style.display="none");
+}
+if(kf===2){ // 剖面打開到一半（切割線掃過、頭部半透明露出腦）
+  $("#title").textContent="剖面打開";
+  cam(560,800,1.18);
+  $("#head").setAttribute("fill-opacity",".32");
+  show("#cutline",1);
+  $("#particles").setAttribute("opacity","0");
+}
+if(kf===3){ // 嗅球放大 + 光路徑
+  $("#title").textContent="氣味分子進到嗅球";
+  cam(470,866,1.7);
+  $("#head").setAttribute("fill-opacity",".3");
+  show("#glow-bulb",1); show("#path",1);
+  $("#bulb").setAttribute("rx","34"); $("#bulb").setAttribute("ry","22");
+  lab("#lab-bulb",470,560);
+}
+if(kf===4){ // 邊緣系統亮起 + 回憶泡泡
+  $("#title").textContent="管情緒和記憶的邊緣系統";
+  cam(545,905,1.7);
+  $("#head").setAttribute("fill-opacity",".28");
+  show("#glow-amy",1); show("#glow-hip",1); show("#thalx",1); show("#path",.5);
+  lab("#lab-amy",250,1180); lab("#lab-hip",720,1180);
+  const b=$("#bubble"); b.style.display="flex"; b.style.left="640px"; b.style.top="760px";
+}
+</script>
+</body>
+</html>

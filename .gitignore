@@ -55,3 +55,5 @@ projects/*/broll/qa*/
 projects/*/broll/*.png
 projects/*/broll/uploaded/
 projects/*/composition/*.png
+projects/*/brain/*.png
+projects/*/brain/*.otf
