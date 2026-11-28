@@ -59,3 +59,6 @@ projects/*/brain/*.png
 projects/*/brain/*.otf
 projects/*/brain/ref/
 projects/*/brain/*.svg
+projects/*/brain/head_test.html
+projects/*/brain/view.html
+projects/*/brain/*.js
