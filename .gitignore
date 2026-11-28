@@ -1,4 +1,8 @@
+# Pixabay API 金鑰（放在 repo 根目錄，絕對不進 Git）
+.pixabay-key
+
 # 素材與成品不進 Git（用雲端硬碟傳給夥伴）
+projects/*/inputs/broll/
 projects/*/inputs/*.m4a
 projects/*/inputs/*.mp3
 projects/*/inputs/*.wav
