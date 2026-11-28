@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="zh-Hant" data-resolution="portrait">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<script src="vendor/gsap.min.js"></script>
+<style>
+  @font-face { font-family:"Noto Sans TC"; font-weight:400; src:url("fonts/NotoSansTC-Regular.otf"); }
+  @font-face { font-family:"Noto Sans TC"; font-weight:700; src:url("fonts/NotoSansTC-Bold.otf"); }
+  @font-face { font-family:"Noto Sans TC"; font-weight:900; src:url("fonts/NotoSansTC-Black.otf"); }
+  @font-face { font-family:"Noto Color Emoji"; src:url("fonts/NotoColorEmoji.ttf"); }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{width:1080px;height:1920px;overflow:hidden;background:#f4ead6;}
+  body{font-family:"Noto Sans TC","Noto Color Emoji",sans-serif;color:#3a2b18;-webkit-font-smoothing:antialiased;}
+  #root{position:relative;width:1080px;height:1920px;overflow:hidden;background:#f4ead6;}
+  .scene{position:absolute;inset:0;}
+  .abs{position:absolute;}
+  .emo{font-family:"Noto Color Emoji",sans-serif;line-height:1;}
+  .cream{background:radial-gradient(130% 100% at 50% 40%,#f9f1e3 0%,#f0ddc4 62%,#e7cda8 100%);}
+  .lav{background:radial-gradient(130% 100% at 50% 40%,#f3eef9 0%,#e6ddf2 60%,#d7c9ea 100%);}
+  .bg{position:absolute;inset:0;width:1080px;height:1920px;object-fit:cover;}
+  /* 圓角照片窗格 */
+  .card{position:absolute;left:81px;top:300px;width:918px;height:612px;border-radius:46px;overflow:hidden;
+    box-shadow:0 30px 70px rgba(90,60,30,.3),0 0 0 8px rgba(255,255,255,.55);}
+  .card img,.card video{position:absolute;inset:0;width:918px;height:612px;object-fit:cover;}
+  .kw{position:absolute;left:0;right:0;top:1010px;text-align:center;}
+  .kw span{display:inline-block;font-size:48px;font-weight:900;color:#5a4324;background:rgba(255,252,245,.9);
+    border-radius:999px;padding:12px 40px;box-shadow:0 8px 24px rgba(120,80,40,.18);}
+  .kw.l span{color:#5a4a7a;background:rgba(248,245,253,.92);}
+  /* 安全提醒卡 */
+  .safe{position:absolute;left:70px;top:230px;right:70px;display:flex;flex-direction:column;gap:18px;align-items:center;}
+  .safe .c{background:rgba(42,30,18,.82);border-radius:24px;padding:16px 34px;font-size:46px;font-weight:900;color:#fff;display:flex;align-items:center;gap:16px;white-space:nowrap;box-shadow:0 10px 30px rgba(0,0,0,.25);}
+  .safe .c .emo{font-size:54px;}
+  /* 大腦 */
+  #sc-brain{background:radial-gradient(130% 100% at 50% 42%,#f6eedf 0%,#ece0d8 55%,#e2d3e0 100%);}
+  .lbl{position:absolute;font-size:40px;font-weight:900;color:#3a2b18;background:rgba(255,251,243,.96);border-radius:16px;padding:8px 22px;white-space:nowrap;box-shadow:0 6px 20px rgba(120,80,40,.22);opacity:0;}
+  .lbl small{font-weight:700;font-size:27px;color:#8a6a40;}
+  #brain-tag{position:absolute;right:30px;top:1200px;font-size:30px;color:#6a4e30;font-weight:700;}
+  #membubble{position:absolute;left:700px;top:800px;width:270px;height:270px;margin:-135px 0 0 -135px;border-radius:50%;background:#fff7ec;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 12px 44px rgba(120,80,40,.3);opacity:0;}
+  #membubble b{font-size:48px;font-weight:900;color:#4a3320;} #membubble span{font-size:34px;color:#8a6a40;margin-top:6px;}
+  /* CTA */
+  #cta-q{position:absolute;left:70px;right:70px;top:430px;text-align:center;font-size:92px;font-weight:900;line-height:1.3;color:#fff;text-shadow:0 2px 18px rgba(0,0,0,.6);}
+  #cta-sub{position:absolute;left:90px;right:90px;top:700px;text-align:center;font-size:48px;font-weight:700;color:rgba(255,255,255,.95);text-shadow:0 2px 14px rgba(0,0,0,.6);}
+  #cta-card{position:absolute;left:120px;top:806px;width:840px;height:356px;border-radius:48px;background:rgba(42,33,28,.9);color:#fff;display:flex;align-items:center;justify-content:center;gap:26px;box-shadow:0 16px 50px rgba(0,0,0,.4);}
+  #cta-card .dm{font-size:72px;font-weight:900;color:#fff;}
+  #cta-kw{display:inline-block;background:#9b86c9;color:#2a2340;border-radius:36px;padding:8px 40px;font-size:118px;font-weight:900;line-height:1.15;}
+  #cta-act{position:absolute;left:65px;right:65px;top:1176px;text-align:center;font-size:62px;font-weight:700;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.6);}
+  /* 字幕 */
+  #capgrad{position:absolute;left:0;right:0;bottom:0;height:640px;background:linear-gradient(to top,rgba(14,8,4,.62) 0%,rgba(14,8,4,.78) 34%,rgba(14,8,4,.76) 60%,rgba(14,8,4,0) 100%);pointer-events:none;}
+  #captions{position:absolute;left:70px;right:70px;top:1380px;height:206px;}
+  #captions p{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;text-align:center;font-size:72px;font-weight:900;line-height:1.34;text-wrap:balance;color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.6),0 0 4px rgba(0,0,0,.5);opacity:0;}
+  #captions .kw{color:#f0d9a0;}
+  .particle{position:absolute;border-radius:50%;}
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="88.15" data-width="1080" data-height="1920">
+  <audio id="voice" src="silent.m4a" data-start="0" data-duration="88.15" data-track-index="9" data-volume="1"></audio>
+
+  <!-- 照片窗格場景 -->
+  <section id="sc-open" class="scene clip cream" data-start="0" data-duration="6.75" data-track-index="1">
+    <div class="card"><img class="kb" src="open_photo.png"/></div>
+    <div class="kw"><span>小孩睡了，終於坐下</span></div>
+  </section>
+  <section id="sc-diff" class="scene clip lav" data-start="6.25" data-duration="6.65" data-track-index="1">
+    <div class="card"><img class="kb" src="diffuser.png"/></div>
+    <div class="kw l"><span>點一盞擴香</span></div>
+  </section>
+  <section id="sc-mist" class="scene clip cream" data-start="12.40" data-duration="5.15" data-track-index="1">
+    <div class="card"><img class="kb2" src="diffuser.png"/></div>
+    <div class="kw"><span>用鼻子深呼吸</span></div>
+  </section>
+
+  <!-- 大腦動畫 -->
+  <section id="sc-brain" class="scene clip" data-start="17.05" data-duration="27.45" data-track-index="1">
+    <svg class="abs" style="left:0;top:0" width="1080" height="1920" viewBox="0 0 1080 1920">
+      <defs>
+        <radialGradient id="gGold" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffe6a8"/><stop offset="45%" stop-color="#f3b24d" stop-opacity=".85"/><stop offset="100%" stop-color="#f3b24d" stop-opacity="0"/></radialGradient>
+        <radialGradient id="gLav" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#cdbbf0"/><stop offset="45%" stop-color="#9b86c9" stop-opacity=".9"/><stop offset="100%" stop-color="#9b86c9" stop-opacity="0"/></radialGradient>
+      </defs>
+      <g id="braincam" transform="translate(0,0) scale(1)">
+        <image id="brainimg" href="lynch.svg" x="200" y="500" width="680" height="751" preserveAspectRatio="xMidYMid meet"/>
+        <path id="tract" d="M360,858 L444,884" stroke="#e8a94e" stroke-width="11" stroke-linecap="round" opacity="0"/>
+        <ellipse id="bulb" cx="338" cy="860" rx="30" ry="18" fill="#efb052" stroke="#c9842f" stroke-width="3" opacity="0"/>
+        <ellipse id="amy" cx="449" cy="896" rx="22" ry="17" fill="#c79ad8" stroke="#9a6cb4" stroke-width="3" opacity="0"/>
+        <path id="hip" d="M495,906 C525,904 540,930 525,950 C513,966 488,963 484,944 C482,930 496,926 505,934" fill="none" stroke="#9b86c9" stroke-width="13" stroke-linecap="round" opacity="0"/>
+        <circle id="glow-bulb" cx="338" cy="860" r="95" fill="url(#gGold)" opacity="0"/>
+        <circle id="glow-amy" cx="451" cy="902" r="76" fill="url(#gLav)" opacity="0"/>
+        <circle id="glow-hip" cx="500" cy="944" r="86" fill="url(#gLav)" opacity="0"/>
+        <circle id="glow-thal" cx="555" cy="746" r="70" fill="#9bb0d0" opacity="0"/>
+        <path id="path" d="M292,1012 C320,940 352,884 338,860 C400,872 440,884 470,924 C486,944 496,956 500,944" fill="none" stroke="#ffcf7a" stroke-width="9" stroke-linecap="round" opacity="0" style="filter:drop-shadow(0 0 8px rgba(255,190,90,.9))"/>
+        <g id="thalx" opacity="0"><circle cx="555" cy="746" r="40" fill="rgba(140,140,140,.9)"/><path d="M533,724 L577,768 M577,724 L533,768" stroke="#ce4a3c" stroke-width="9" stroke-linecap="round"/></g>
+        <g id="mol" opacity="0"><circle cx="300" cy="1020" r="15" fill="#fff"/><circle cx="300" cy="1020" r="26" fill="none" stroke="#ffcf7a" stroke-width="5"/></g>
+      </g>
+    </svg>
+    <div id="lab-thal" class="lbl" style="left:600px;top:782px">視丘<small>　轉運站</small></div>
+    <div id="lab-bulb" class="lbl" style="left:430px;top:600px">嗅球</div>
+    <div id="lab-amy" class="lbl" style="left:200px;top:1208px">杏仁核<small>　情緒</small></div>
+    <div id="lab-hip" class="lbl" style="left:720px;top:1208px">海馬迴<small>　記憶</small></div>
+    <div id="membubble"><b>外婆家</b><span>安心的午後</span></div>
+    <div id="brain-tag">示意圖</div>
+  </section>
+
+  <!-- 回憶：外婆家窗格 -->
+  <section id="sc-mem" class="scene clip cream" data-start="44.00" data-duration="6.15" data-track-index="1">
+    <div class="card"><img class="kb" src="grandma.png"/></div>
+    <div class="kw"><span>一瞬間，想起外婆家</span></div>
+  </section>
+  <!-- 蠟燭窗格 -->
+  <video id="v-candle" class="bg clip" src="bg_v08.mp4" muted loop data-start="49.65" data-duration="8.15" data-track-index="1"></video>
+  <section id="sc-candle" class="scene clip" data-start="49.65" data-duration="8.15" data-track-index="2">
+    <div class="kw l"><span>照顧自己的小儀式</span></div>
+  </section>
+
+  <!-- 安全：滿版照片＋提醒卡 -->
+  <section id="sc-oil" class="scene clip" data-start="57.30" data-duration="6.90" data-track-index="1">
+    <img class="bg kb" src="oil.png"/>
+    <div class="safe"><div id="safe1" class="c"><span class="emo">💧</span>稀釋後再接觸皮膚</div><div id="safe2" class="c"><span class="emo">🚫</span>不要直接吞下肚</div></div>
+  </section>
+  <video id="v-baby" class="bg clip" src="bg_v10a.mp4" muted loop data-start="63.70" data-duration="3.85" data-track-index="1"></video>
+  <video id="v-pet" class="bg clip" src="bg_v10b.mp4" muted loop data-start="67.05" data-duration="3.80" data-track-index="1"></video>
+  <section id="sc-safe2" class="scene clip" data-start="64.20" data-duration="6.65" data-track-index="2">
+    <div class="safe"><div id="safe3" class="c"><span class="emo">👶</span><span class="emo">🐾</span>孕婦・嬰幼兒・毛小孩更小心</div></div>
+  </section>
+
+  <!-- CTA -->
+  <video id="v-cta" class="bg clip" src="bg_CTA.mp4" muted loop data-start="70.35" data-duration="17.80" data-track-index="1"></video>
+  <section id="sc-cta" class="scene clip" data-start="70.35" data-duration="17.80" data-track-index="2">
+    <div class="abs" style="left:0;top:0;width:1080px;height:1300px;background:linear-gradient(to bottom,rgba(16,9,5,.62) 0%,rgba(16,9,5,.56) 48%,rgba(16,9,5,.24) 66%,rgba(16,9,5,0) 82%);pointer-events:none"></div>
+    <div id="cta-q" data-cta="question">想知道自己適合從哪一種精油開始嗎？</div>
+    <div id="cta-sub">每個人的生活需求與使用情境都不同</div>
+    <div id="cta-card"><span class="emo" style="font-size:96px">💬</span><span class="dm">私訊</span><span id="cta-kw" data-cta="keyword">精油</span></div>
+    <div id="cta-act" data-cta="action-tail">做 3 分鐘芳療需求測驗</div>
+  </section>
+
+  <!-- 飄動光點（全片） -->
+  <div id="parts" class="clip" data-start="0" data-duration="88.15" data-track-index="5"></div>
+  <div id="capgrad" class="clip" data-start="0" data-duration="88.15" data-track-index="7"></div>
+  <div id="captions" class="clip" data-start="0" data-duration="88.15" data-track-index="8" data-hide-from="70.85">
+    <!-- CAPTIONS:BEGIN -->
+        <p data-s="0.60" data-e="3.60">為什麼很多人聞到某些味道</p>
+        <p data-s="3.60" data-e="6.75">會覺得比較容易放鬆下來？</p>
+        <p data-s="6.75" data-e="9.00">小孩睡了、碗也洗完了</p>
+        <p data-s="9.00" data-e="10.50">你終於坐下來</p>
+        <p data-s="10.50" data-e="12.90">卻還是放鬆不下來？</p>
+        <p data-s="12.90" data-e="15.40">其實有一個很快的方法</p>
+        <p data-s="15.40" data-e="17.55">就是用你的鼻子</p>
+        <p data-s="17.55" data-e="19.30">我們的眼睛、耳朵</p>
+        <p data-s="19.30" data-e="21.30">皮膚接收到的訊號</p>
+        <p data-s="21.30" data-e="23.55">大多要先經過大腦裡</p>
+        <p data-s="23.55" data-e="25.80">一個叫「視丘」的轉運站</p>
+        <p data-s="25.80" data-e="27.45">再分送出去</p>
+        <p data-s="27.45" data-e="29.35">但嗅覺不一樣</p>
+        <p data-s="29.35" data-e="31.85">氣味分子進到鼻子以後</p>
+        <p data-s="31.85" data-e="34.85">主要的訊號不用先經過視丘</p>
+        <p data-s="34.85" data-e="37.10">可以直接傳到大腦裡</p>
+        <p data-s="37.10" data-e="39.35">管情緒和記憶的地方</p>
+        <p data-s="39.35" data-e="41.50">也就是「邊緣系統」</p>
+        <p data-s="41.50" data-e="43.25">所以你才會在聞</p>
+        <p data-s="43.25" data-e="45.25">到某個味道的時候</p>
+        <p data-s="45.25" data-e="47.25">一瞬間想起外婆家</p>
+        <p data-s="47.25" data-e="50.15">或是某個很安心的午後</p>
+        <p data-s="50.15" data-e="52.65">這也是為什麼香氣可以</p>
+        <p data-s="52.65" data-e="54.90">幫你營造放鬆的氛圍</p>
+        <p data-s="54.90" data-e="57.80">成為照顧自己的小儀式</p>
+        <p data-s="57.80" data-e="59.30">不過要提醒你</p>
+        <p data-s="59.30" data-e="62.30">精油要稀釋過才能接觸皮膚</p>
+        <p data-s="62.30" data-e="64.20">也不要直接吞</p>
+        <p data-s="64.20" data-e="65.45">家裡有孕婦</p>
+        <p data-s="65.45" data-e="67.70">小嬰兒或毛小孩的話</p>
+        <p data-s="67.70" data-e="70.85">選擇和使用方式要更小心</p>
+        <p data-s="70.85" data-e="72.85">你知道自己適合從</p>
+        <p data-s="72.85" data-e="75.25">哪一種精油開始嗎？</p>
+        <p data-s="75.25" data-e="77.25">每個人的生活需求</p>
+        <p data-s="77.25" data-e="79.65">與使用情境都不同</p>
+        <p data-s="79.65" data-e="80.90">私訊我「精油」</p>
+        <p data-s="80.90" data-e="83.65">做個 3 分鐘芳療需求測驗</p>
+        <p data-s="83.65" data-e="87.05">找出適合你的日常芳療方向</p>
+    <!-- CAPTIONS:END -->
+  </div>
+</div>
+
+<script>
+const tl = gsap.timeline({ paused:true });
+const XF=0.5, B=[0,6.75,12.90,17.55,44.50,50.15,57.80,64.20,67.55,70.85,88.15];
+const SC=["#sc-open","#sc-diff","#sc-mist","#sc-brain","#sc-mem",["#v-candle","#sc-candle"],"#sc-oil","#v-baby","#v-pet",["#v-cta","#sc-cta"]];
+SC.forEach((s,i)=>{ if(i===0)gsap.set(s,{opacity:1}); else{gsap.set(s,{opacity:0});tl.to(s,{opacity:1,duration:XF,ease:"power1.inOut"},B[i]-XF);} tl.to(s,{opacity:0,duration:XF,ease:"power1.inOut"},B[i+1]-XF); });
+
+// 窗格滑入＋滑出（窗格轉場）＋ 卡內照片 Ken Burns
+const cardSlide=(sel,a,b)=>{ const c=sel+" .card"; tl.fromTo(c,{x:170,scale:.92},{x:0,scale:1,duration:.7,ease:"power3.out"},a); tl.to(c,{x:-150,scale:.94,duration:.6,ease:"power2.in"},b-0.55); };
+const kbz=(sel,a,dur,f,t)=>tl.fromTo(sel,{scale:f},{scale:t,duration:dur,ease:"none",transformOrigin:"50% 50%"},a);
+[["#sc-open",0,6.75],["#sc-diff",6.25,12.90],["#sc-mist",12.40,17.55],["#sc-mem",44.00,50.15]].forEach(([s,a,b])=>cardSlide(s,a,b));
+kbz("#sc-open .kb",0,7,1.0,1.12); kbz("#sc-diff .kb",6.25,7,1.0,1.1); kbz("#sc-mist .kb2",12.40,5.3,1.2,1.5); kbz("#sc-mem .kb",44,6.4,1.0,1.12);
+// 關鍵字 chip 淡入
+["#sc-open","#sc-diff","#sc-mist","#sc-mem","#sc-candle"].forEach((s,i)=>{const t=[0.6,6.9,13.0,44.6,50.3][i]; tl.fromTo(s+" .kw",{opacity:0,y:20},{opacity:1,y:0,duration:.5,ease:"power2.out"},t);});
+
+/* 大腦動畫 */
+const cam=(t,s,px,py,d=2.2)=>tl.to("#braincam",{scale:s,x:540-px*s,y:960-py*s,duration:d,ease:"power1.inOut",transformOrigin:"0px 0px"},t);
+gsap.set("#braincam",{transformOrigin:"0px 0px",x:0,y:0,scale:1});
+const glowIn=(s,t)=>tl.fromTo(s,{opacity:0,scale:.4},{opacity:1,scale:1,duration:.6,ease:"back.out(1.7)",transformOrigin:"50% 50%"},t);
+const drawP=(s,t,d=.6)=>tl.fromTo(s,{attr:{"stroke-dashoffset":1}},{attr:{"stroke-dashoffset":0},duration:d,ease:"power1.out"},t);
+const fadeInEl=(s,t,d=.4)=>tl.to(s,{opacity:1,duration:d},t);
+tl.fromTo("#brainimg",{opacity:0,scale:.96},{opacity:1,scale:1,duration:.6,transformOrigin:"50% 50%"},17.3);
+tl.fromTo("#brain-tag",{opacity:0},{opacity:1,duration:.4},17.6);
+// L4 其他感覺→視丘
+cam(19.5,1.28,555,746,3.2);
+fadeInEl("#glow-thal",21.0,.5); tl.fromTo("#lab-thal",{opacity:0,y:14},{opacity:1,y:0,duration:.5},21.6);
+// L5 但嗅覺不一樣
+tl.to("#glow-thal",{opacity:.25,duration:.5},27.5); tl.to("#lab-thal",{opacity:0,duration:.4},27.3);
+cam(28.0,1.7,360,880,2.6);
+tl.to("#mol",{opacity:1,duration:.4},28.4); fadeInEl("#bulb",28.6,.4); fadeInEl("#tract",28.8,.4);
+// L6 直達邊緣系統
+drawP("#path",29.6,2.0);
+tl.to("#mol",{x:38,y:-160,duration:1.3,ease:"power1.inOut"},30.0);
+glowIn("#glow-bulb",30.6); tl.fromTo("#lab-bulb",{opacity:0,y:14},{opacity:1,y:0,duration:.5},31.0);
+tl.to("#thalx",{opacity:1,duration:.5},33.2);
+cam(34.4,1.6,470,905,2.8);
+tl.to("#mol",{x:150,y:-110,duration:1.5,ease:"power1.inOut"},34.6);
+fadeInEl("#amy",36.0,.4); glowIn("#glow-amy",36.2); tl.fromTo("#lab-amy",{opacity:0,y:14},{opacity:1,y:0,duration:.5},36.6);
+// 杏仁核脈動
+tl.to("#glow-amy",{scale:1.18,duration:.5,ease:"sine.inOut",yoyo:true,repeat:5,transformOrigin:"50% 50%"},37.4);
+// L7 海馬迴＋回憶泡泡
+cam(41.2,1.7,500,944,2.4);
+tl.to("#mol",{x:196,y:-78,duration:1.0,ease:"power1.inOut"},41.4);
+fadeInEl("#hip",42.0,.4); glowIn("#glow-hip",42.2); tl.fromTo("#lab-hip",{opacity:0,y:14},{opacity:1,y:0,duration:.5},42.5);
+tl.fromTo("#membubble",{opacity:0,scale:.3},{opacity:1,scale:1,duration:.6,ease:"back.out(1.6)",transformOrigin:"50% 50%"},42.8);
+tl.to("#membubble",{scale:11,duration:1.3,ease:"power2.in",transformOrigin:"50% 50%"},43.5);
+
+/* 安全提醒卡滑入 */
+gsap.set(["#safe1","#safe2","#safe3"],{opacity:0});
+tl.fromTo("#safe1",{opacity:0,x:-80},{opacity:1,x:0,duration:.5,ease:"power2.out"},58.2);
+tl.fromTo("#safe2",{opacity:0,x:-80},{opacity:1,x:0,duration:.5,ease:"power2.out"},60.4);
+tl.fromTo("#safe3",{opacity:0,x:-80},{opacity:1,x:0,duration:.5,ease:"power2.out"},64.8);
+kbz("#sc-oil .kb",57.3,7,1.0,1.1);
+
+/* CTA 呼吸燈 */
+gsap.set(["#cta-q","#cta-sub","#cta-card","#cta-act"],{opacity:0});
+tl.fromTo("#cta-q",{opacity:0,y:18},{opacity:1,y:0,duration:.5},71.0);
+tl.fromTo("#cta-sub",{opacity:0,y:16},{opacity:1,y:0,duration:.5},73.2);
+tl.fromTo("#cta-card",{opacity:0,y:-40,scale:.7},{opacity:1,y:0,scale:1,duration:.5,ease:"back.out(2)",transformOrigin:"50% 50%"},75.6);
+tl.fromTo("#cta-card",{boxShadow:"0 16px 50px rgba(0,0,0,.4)"},{boxShadow:"0 16px 70px rgba(155,134,201,.8)",duration:.9,ease:"sine.inOut",yoyo:true,repeat:11},76.4);
+tl.fromTo("#cta-kw",{scale:1},{scale:1.06,duration:.55,ease:"sine.inOut",yoyo:true,repeat:19,transformOrigin:"50% 50%"},76.4);
+tl.fromTo("#cta-act",{opacity:0,y:16},{opacity:1,y:0,duration:.5},77.0);
+
+/* 飄動光點 */
+const P=document.getElementById("parts"); const NS=null;
+const pcoord=[[140,520,14,"#f3b24d"],[300,1400,10,"#c9b6ef"],[820,600,12,"#f3b24d"],[700,1500,9,"#c9b6ef"],[520,420,10,"#e8c98a"],[930,1200,12,"#c9b6ef"],[200,1600,11,"#f3b24d"],[880,980,9,"#e8c98a"]];
+pcoord.forEach(([x,y,r,c],i)=>{const d=document.createElement("div");d.className="particle";d.style.cssText=`left:${x}px;top:${y}px;width:${r*2}px;height:${r*2}px;background:${c};opacity:.5;filter:blur(1px)`;P.appendChild(d);
+  tl.to(d,{y:`-=${120+i*14}`,x:`+=${(i%2?40:-40)}`,duration:10,ease:"sine.inOut",yoyo:true,repeat:8},i*0.6);
+  tl.fromTo(d,{opacity:0},{opacity:.5,duration:1.4,ease:"none"},i*0.6);});
+
+/* 字幕 */
+const hideFrom=+document.getElementById("captions").dataset.hideFrom||Infinity;
+document.querySelectorAll("#captions p").forEach(p=>{const s=+p.dataset.s,e=Math.min(+p.dataset.e,hideFrom);if(s>=hideFrom)return;tl.set(p,{opacity:1},s);tl.set(p,{opacity:0},e);});
+tl.set({},{},88.15);
+window.__timelines=window.__timelines||{}; window.__timelines["main"]=tl;
+</script>
+</body>
+</html>
