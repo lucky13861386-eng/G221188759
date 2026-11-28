@@ -5,7 +5,7 @@
 <style>
   @font-face { font-family:"Noto Sans TC"; font-weight:700; src:url("NotoSansTC-Bold.otf"); }
   @font-face { font-family:"Noto Sans TC"; font-weight:900; src:url("NotoSansTC-Black.otf"); }
-  html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#f4ead6;font-family:"Noto Sans TC",sans-serif;}
+  html,body{margin:0;width:1080px;height:1920px;overflow:hidden;font-family:"Noto Sans TC",sans-serif;}
   #frame{position:relative;width:1080px;height:1920px;overflow:hidden;background:radial-gradient(130% 100% at 50% 40%,#f7eedd 0%,#efdcc2 62%,#e4cba7 100%);}
   .lbl{position:absolute;font-size:38px;font-weight:900;color:#3a2b18;background:rgba(255,251,243,.96);border-radius:15px;padding:7px 20px;white-space:nowrap;box-shadow:0 6px 20px rgba(120,80,40,.22);}
   .lbl small{font-weight:700;font-size:26px;color:#8a6a40;}
@@ -20,77 +20,44 @@
     <defs>
       <radialGradient id="gGold" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffe6a8"/><stop offset="45%" stop-color="#f3b24d" stop-opacity=".85"/><stop offset="100%" stop-color="#f3b24d" stop-opacity="0"/></radialGradient>
       <radialGradient id="gLav" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#cdbbf0"/><stop offset="45%" stop-color="#9b86c9" stop-opacity=".9"/><stop offset="100%" stop-color="#9b86c9" stop-opacity="0"/></radialGradient>
-      <clipPath id="brainClip"><path d="M452,600 C424,600 410,632 422,656 C392,652 378,686 398,710 C376,716 368,748 392,766
-        C382,792 398,820 430,826 C440,864 470,892 512,892 C498,918 512,946 548,950 C560,980 606,988 640,968
-        C716,978 776,940 792,872 C832,856 842,792 806,762 C818,728 808,686 770,678 C766,640 724,612 680,622
-        C648,596 548,590 500,600 C484,592 468,596 452,600 Z"/></clipPath>
     </defs>
-
     <g id="world" transform="translate(0,0) scale(1)">
       <!-- 頭部側面（面朝左） -->
-      <path id="head" d="M604,512 C486,512 408,556 382,626 C366,668 362,702 342,730 C326,754 322,780 304,798
-        C290,814 298,832 324,836 C336,866 328,892 350,906 C338,934 344,964 392,980 C410,1034 470,1064 556,1066
-        L556,1300 L742,1300 C792,1122 840,958 840,804 C840,648 740,512 604,512 Z"
+      <path id="head" d="M660,496 C470,496 348,556 326,680 C312,744 292,792 242,860 C212,892 218,922 254,930
+        C274,936 288,952 285,978 C278,1014 304,1058 366,1074 C424,1132 524,1162 586,1162 L586,1320 L826,1320
+        C906,1100 946,900 946,760 C946,600 840,496 660,496 Z"
         fill="#f1dcc0" stroke="#caa178" stroke-width="5"/>
-
-      <!-- 大腦（彩色腦葉，裁切在腦輪廓內） -->
-      <g id="brain">
-        <g clip-path="url(#brainClip)">
-          <rect x="360" y="560" width="470" height="440" fill="#f3e6d2"/>
-          <ellipse cx="455" cy="720" rx="130" ry="150" fill="#e9b887"/>   <!-- 額葉 orange -->
-          <ellipse cx="610" cy="650" rx="150" ry="120" fill="#a9c6a0"/>   <!-- 頂葉 green -->
-          <ellipse cx="770" cy="740" rx="120" ry="130" fill="#e0b0a8"/>   <!-- 枕葉 rose -->
-          <ellipse cx="540" cy="880" rx="130" ry="90" fill="#dcc07a"/>    <!-- 顳葉 gold -->
-          <!-- 腦溝 gyri -->
-          <g stroke="#a9794e" stroke-opacity=".5" stroke-width="3.5" fill="none">
-            <path d="M420,640 C480,626 600,628 690,648"/>
-            <path d="M400,690 C500,674 640,680 760,706"/>
-            <path d="M406,742 C520,728 660,736 788,760"/>
-            <path d="M430,800 C540,790 660,800 760,824"/>
-            <path d="M470,852 C560,846 650,856 720,876"/>
-          </g>
-        </g>
-        <!-- 腦輪廓線 -->
-        <path d="M452,600 C424,600 410,632 422,656 C392,652 378,686 398,710 C376,716 368,748 392,766 C382,792 398,820 430,826 C440,864 470,892 512,892 C498,918 512,946 548,950 C560,980 606,988 640,968 C716,978 776,940 792,872 C832,856 842,792 806,762 C818,728 808,686 770,678 C766,640 724,612 680,622 C648,596 548,590 500,600 C484,592 468,596 452,600 Z" fill="none" stroke="#9a6f44" stroke-width="4"/>
-        <!-- 胼胝體（cream 弧） -->
-        <path d="M470,790 C520,752 640,748 720,780" fill="none" stroke="#f2e4cf" stroke-width="22" stroke-linecap="round"/>
-        <path d="M470,790 C520,752 640,748 720,780" fill="none" stroke="#d9bf9c" stroke-width="3"/>
-        <!-- 腦幹 -->
-        <path id="stem" d="M612,900 C612,950 632,1000 648,1030 L690,1014 C672,980 666,936 664,896 Z" fill="#d9b48a" stroke="#b48a5e" stroke-width="3"/>
-        <!-- 小腦（wrinkled） -->
-        <g id="cereb"><ellipse cx="748" cy="930" rx="76" ry="66" fill="#cf9fb6" stroke="#aa7794" stroke-width="3"/>
-          <g stroke="#aa7794" stroke-opacity=".6" stroke-width="3" fill="none"><path d="M690,906 C720,900 770,902 804,912"/><path d="M688,930 C724,924 772,928 806,938"/><path d="M694,956 C726,950 768,956 800,964"/></g></g>
-      </g>
+      <!-- 專業大腦插畫（Patrick Lynch, CC BY；向量） -->
+      <image id="brainimg" href="lynch.svg" x="300" y="560" width="620" height="686" preserveAspectRatio="xMidYMid meet"/>
 
       <!-- 鼻腔 -->
-      <path id="nasal" d="M332,838 C354,846 366,878 356,912 L338,958 C322,934 318,886 332,838 Z" fill="#efc9a0" stroke="#caa178" stroke-width="3"/>
+      <path id="nasal" d="M258,936 C280,944 292,974 282,1006 L266,1050 C250,1026 246,980 258,936 Z" fill="#efc9a0" stroke="#caa178" stroke-width="3"/>
       <!-- 嗅徑 -->
-      <path id="tract" d="M470,852 L560,866" stroke="#e8a94e" stroke-width="10" stroke-linecap="round"/>
+      <path id="tract" d="M408,930 L520,906" stroke="#e8a94e" stroke-width="10" stroke-linecap="round"/>
       <!-- 嗅球 -->
-      <ellipse id="bulb" cx="452" cy="850" rx="30" ry="18" fill="#efb052" stroke="#c9842f" stroke-width="3"/>
-      <!-- 視丘 -->
-      <ellipse id="thal" cx="600" cy="772" rx="46" ry="40" fill="#8fb0d6" stroke="#5f85b0" stroke-width="3"/>
+      <ellipse id="bulb" cx="398" cy="934" rx="30" ry="18" fill="#efb052" stroke="#c9842f" stroke-width="3"/>
+      <!-- 視丘標記（疊在插畫視丘位置） -->
+      <ellipse id="thal" cx="610" cy="806" rx="34" ry="30" fill="#8fb0d6" fill-opacity=".0" stroke="#5f85b0" stroke-width="0"/>
       <!-- 杏仁核 -->
-      <path id="amy" d="M524,884 C510,878 502,896 512,912 C524,926 548,922 550,904 C552,890 538,882 524,884 Z" fill="#c79ad8" stroke="#9a6cb4" stroke-width="3"/>
+      <ellipse id="amy" cx="530" cy="958" rx="22" ry="18" fill="#c79ad8" stroke="#9a6cb4" stroke-width="3"/>
       <!-- 海馬迴 -->
-      <path id="hip" d="M576,906 C612,904 628,930 612,954 C598,974 566,970 562,948 C560,932 576,928 586,936" fill="none" stroke="#9b86c9" stroke-width="14" stroke-linecap="round"/>
+      <path id="hip" d="M566,968 C600,966 616,992 600,1016 C586,1036 556,1032 552,1010 C550,994 566,990 576,998" fill="none" stroke="#9b86c9" stroke-width="13" stroke-linecap="round"/>
 
       <!-- 發光層 -->
-      <circle id="glow-bulb" cx="452" cy="850" r="95" fill="url(#gGold)" opacity="0"/>
-      <circle id="glow-amy" cx="528" cy="900" r="80" fill="url(#gLav)" opacity="0"/>
-      <circle id="glow-hip" cx="592" cy="944" r="92" fill="url(#gLav)" opacity="0"/>
+      <circle id="glow-bulb" cx="398" cy="934" r="95" fill="url(#gGold)" opacity="0"/>
+      <circle id="glow-amy" cx="534" cy="972" r="78" fill="url(#gLav)" opacity="0"/>
+      <circle id="glow-hip" cx="580" cy="1010" r="90" fill="url(#gLav)" opacity="0"/>
       <!-- 光路徑 -->
-      <path id="path" d="M335,942 C366,900 410,866 452,850 C500,858 544,866 576,912 C592,930 602,940 592,944"
+      <path id="path" d="M262,1030 C300,984 350,948 398,934 C446,926 500,930 540,966 C560,984 572,996 580,1010"
         fill="none" stroke="#ffcf7a" stroke-width="9" stroke-linecap="round" opacity="0" style="filter:drop-shadow(0 0 8px rgba(255,190,90,.9))"/>
       <!-- 視丘打叉 -->
-      <g id="thalx" opacity="0"><circle cx="600" cy="772" r="46" fill="rgba(140,140,140,.9)"/><path d="M574,746 L626,798 M626,746 L574,798" stroke="#ce4a3c" stroke-width="10" stroke-linecap="round"/></g>
-      <!-- 剖面切割線 -->
-      <line id="cutline" x1="300" y1="540" x2="850" y2="1120" stroke="#fff3d6" stroke-width="12" opacity="0" style="filter:drop-shadow(0 0 14px rgba(255,220,150,.95))"/>
+      <g id="thalx" opacity="0"><circle cx="610" cy="806" r="42" fill="rgba(140,140,140,.9)"/><path d="M586,782 L634,830 M634,782 L586,830" stroke="#ce4a3c" stroke-width="10" stroke-linecap="round"/></g>
+      <!-- 切割線 -->
+      <line id="cutline" x1="280" y1="520" x2="860" y2="1140" stroke="#fff3d6" stroke-width="12" opacity="0" style="filter:drop-shadow(0 0 14px rgba(255,220,150,.95))"/>
       <!-- 香氣粒子 -->
-      <g id="particles" fill="#f3b24d"><circle cx="180" cy="900" r="9"/><circle cx="235" cy="868" r="7"/><circle cx="268" cy="918" r="8"/><circle cx="210" cy="946" r="6"/><circle cx="300" cy="888" r="7"/></g>
+      <g id="particles" fill="#f3b24d"><circle cx="150" cy="980" r="9"/><circle cx="205" cy="948" r="7"/><circle cx="238" cy="998" r="8"/><circle cx="180" cy="1026" r="6"/><circle cx="270" cy="968" r="7"/></g>
     </g>
   </svg>
-
   <div id="lab-bulb" class="lbl" style="display:none">嗅球</div>
   <div id="lab-thal" class="lbl" style="display:none">視丘<small>　轉運站</small></div>
   <div id="lab-amy" class="lbl" style="display:none">杏仁核<small>　情緒</small></div>
@@ -105,11 +72,11 @@ const $=s=>document.querySelector(s);
 function cam(px,py,s){ $("#world").setAttribute("transform",`translate(${540-px*s},${960-py*s}) scale(${s})`); }
 function show(id,o=1){ const e=$(id); if(e){e.style.opacity=o; if(e.tagName!=='DIV') e.setAttribute("opacity",o);} }
 function lab(id,x,y){ const e=$(id); e.style.display="block"; e.style.left=x+"px"; e.style.top=y+"px"; }
-if(kf===1){ $("#title").textContent="就是用你的鼻子"; cam(540,860,1.0);
-  ["#brain","#nasal","#tract","#bulb","#thal","#amy","#hip"].forEach(id=>$(id).style.display="none"); }
-if(kf===2){ $("#title").textContent="剖面打開"; cam(560,800,1.12); $("#head").setAttribute("fill-opacity",".3"); show("#cutline",1); $("#particles").setAttribute("opacity","0"); }
-if(kf===3){ $("#title").textContent="氣味分子進到嗅球"; cam(470,864,1.7); $("#head").setAttribute("fill-opacity",".26"); show("#glow-bulb",1); show("#path",1); $("#bulb").setAttribute("rx","34"); $("#bulb").setAttribute("ry","22"); lab("#lab-bulb",460,560); }
-if(kf===4){ $("#title").textContent="管情緒和記憶的邊緣系統"; cam(560,905,1.7); $("#head").setAttribute("fill-opacity",".24"); show("#glow-amy",1); show("#glow-hip",1); show("#thalx",1); show("#path",.5); lab("#lab-amy",230,1180); lab("#lab-hip",720,1180); const b=$("#bubble"); b.style.display="flex"; b.style.left="660px"; b.style.top="740px"; }
+if(kf===1){ $("#title").textContent="就是用你的鼻子"; cam(540,900,1.0);
+  ["#brainimg","#nasal","#tract","#bulb","#amy","#hip"].forEach(id=>$(id).style.display="none"); }
+if(kf===2){ $("#title").textContent="剖面打開"; cam(560,840,1.1); $("#head").setAttribute("fill-opacity",".28"); show("#cutline",1); $("#particles").setAttribute("opacity","0"); }
+if(kf===3){ $("#title").textContent="氣味分子進到嗅球"; cam(430,930,1.7); $("#head").setAttribute("fill-opacity",".22"); show("#glow-bulb",1); show("#path",1); $("#bulb").setAttribute("rx","34"); $("#bulb").setAttribute("ry","22"); lab("#lab-bulb",430,600); }
+if(kf===4){ $("#title").textContent="管情緒和記憶的邊緣系統"; cam(560,975,1.7); $("#head").setAttribute("fill-opacity",".2"); show("#glow-amy",1); show("#glow-hip",1); show("#thalx",1); show("#path",.5); lab("#lab-amy",230,1210); lab("#lab-hip",720,1210); const b=$("#bubble"); b.style.display="flex"; b.style.left="680px"; b.style.top="800px"; }
 </script>
 </body>
 </html>
